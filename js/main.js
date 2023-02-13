@@ -10,7 +10,7 @@ menu.onclick = () => {
 // Notfication
 let bell = document.querySelector('.notification');
 
-document.querySelector('#bell-icon').onclick = () =>{
+document.querySelector('#bell-icon').onclick = () => {
   bell.classList.toggle('active');
 }
 
@@ -24,7 +24,7 @@ var swiper = new Swiper(".trending-content", {
     clickable: true,
   },
   autoplay: {
-    delay:5000,
+    delay: 5000,
     disableOnInteraction: false,
   },
   breakpoints: {
@@ -44,7 +44,7 @@ var swiper = new Swiper(".trending-content", {
 });
 
 // Custom Scroll Bar
-window.onscroll = function() {mufunction()};
+window.onscroll = function () { mufunction() };
 
 function mufunction() {
   var winScroll = document.body.scrollTop || document.documentElement.scrollTop;
@@ -52,3 +52,40 @@ function mufunction() {
   var scrolled = (winScroll / height) * 100;
   document.getElementById('scroll-bar').style.width = scrolled + '%';
 }
+
+//Custom cookies
+
+let popUp = document.getElementById("cookiePopup");
+//When user clicks the accept button
+document.getElementById("acceptCookie").addEventListener("click", () => {
+  //Create date object
+  let d = new Date();
+  //Increment the current time by 1 minute (cookie will expire after 1 minute)
+  d.setMinutes(2 + d.getMinutes());
+  //Create Cookie withname = myCookieName, value = thisIsMyCookie and expiry time=1 minute
+  document.cookie = "myCookieName=thisIsMyCookie; expires = " + d + ";";
+  //Hide the popup
+  popUp.classList.add("hide");
+  popUp.classList.remove("show");
+});
+//Check if cookie is already present
+const checkCookie = () => {
+  //Read the cookie and split on "="
+  let input = document.cookie.split("=");
+  //Check for our cookie
+  if (input[0] == "myCookieName") {
+    //Hide the popup
+    popUp.classList.add("hide");
+    popUp.classList.remove("show");
+  } else {
+    //Show the popup
+    popUp.classList.add("show");
+    popUp.classList.remove("hide");
+  }
+};
+//Check if cookie exists when page loads
+window.onload = () => {
+  setTimeout(() => {
+    checkCookie();
+  }, 2000);
+};
